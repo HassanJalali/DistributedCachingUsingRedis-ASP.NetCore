@@ -18,7 +18,6 @@ namespace Distributed_Caching.Extensions
             return cache.SetAsync(key, bytes, options);
         }
 
-
         //TryGetValue() generic method gets the value from the cache as a byte array and converts it into the respective type.
         public static bool TryGetValue<T>(this IDistributedCache cache, string key, out T? value)
         {
@@ -29,7 +28,6 @@ namespace Distributed_Caching.Extensions
             value = JsonSerializer.Deserialize<T>(val, GetJsonSerializerOptions());
             return true;
         }
-
 
         //GetJsonSerializerOptions()  is a helper method for initializing the JSON serializer options.
         private static JsonSerializerOptions GetJsonSerializerOptions()
