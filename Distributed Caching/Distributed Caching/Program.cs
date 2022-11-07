@@ -5,14 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddScoped<IEmployeeRepository<Employee>, EmployeeRepository>();
 builder.Services.AddControllers();
-builder.Services.AddStackExchangeRedisCache(options =>
-{
-    options.Configuration = builder.Configuration["ConnectionStrings:Redis"];
-    options.InstanceName = "SampleInstance";
-});
+builder.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["RedisCacheUrl"]; });
 builder.Services.AddDbContext<EmployeeContext>(options =>
 {
     options.UseSqlServer(builder.Configuration["ConnectionStrings:EmployeeDB"]);
